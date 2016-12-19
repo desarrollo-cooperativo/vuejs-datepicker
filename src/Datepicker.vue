@@ -92,7 +92,7 @@ export default {
     },
     language: {
       value: String,
-      default: 'en'
+      default: 'es'
     },
     disabled: {
       type: Object

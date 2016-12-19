@@ -1,6 +1,6 @@
 {
   "name": "vuejs-datepicker-string",
-  "version": "0.4.51",
+  "version": "0.4.52",
   "description": "Forked form vuejs-datepicker tu use string date formatting. A simple Vue.js datepicker component. Supports disabling of dates, inline mode, translations",
   "keywords": [
     "vue",
