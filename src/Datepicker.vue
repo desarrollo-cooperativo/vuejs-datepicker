@@ -80,8 +80,7 @@ export default {
   props: {
     value: {
       validator: function (val) {
-        console.log(val)
-        return val === null || val instanceof String || val instanceof Date
+        return val === null || typeof val === 'string' || val instanceof Date
       }
     },
     name: {
@@ -146,7 +145,7 @@ export default {
   },
   watch: {
     value (value) {
-      this.setValue(value)
+      this.setValue((typeof value === 'string') ? new Date(value) : value)
     }
   },
   computed: {
@@ -627,6 +626,7 @@ export default {
         const d = new Date(date)
         this.selectedDate = d
         this.currDate = new Date(d.getFullYear(), d.getMonth(), 1).getTime()
+        return
       }
       this.selectedDate = date
       this.currDate = new Date(date.getFullYear(), date.getMonth(), 1).getTime()
