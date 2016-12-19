@@ -80,7 +80,7 @@ export default {
   props: {
     value: {
       validator: function (val) {
-        return val === null || val instanceof String
+        return val === null || val instanceof String || val instanceof Date
       }
     },
     name: {
@@ -622,7 +622,12 @@ export default {
         this.selectedDate = null
         return
       }
-      this.selectedDate = new Date(date)
+      if (date instanceof String) {
+        const d = new Date(date)
+        this.selectedDate = d
+        this.currDate = new Date(d.getFullYear(), d.getMonth(), 1).getTime()
+      }
+      this.selectedDate = date
       this.currDate = new Date(date.getFullYear(), date.getMonth(), 1).getTime()
     },
 
