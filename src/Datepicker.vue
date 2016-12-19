@@ -622,7 +622,7 @@ export default {
         this.selectedDate = null
         return
       }
-      if (date instanceof String) {
+      if (typeof date === 'string') {
         const d = new Date(date)
         this.selectedDate = d
         this.currDate = new Date(d.getFullYear(), d.getMonth(), 1).getTime()
@@ -635,6 +635,7 @@ export default {
     init () {
       if (this.value) {
         this.setValue(this.value)
+        this.setDate(this.value)
       }
       if (this.isInline()) {
         this.showDayCalendar()
