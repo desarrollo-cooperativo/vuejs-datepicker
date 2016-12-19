@@ -80,6 +80,7 @@ export default {
   props: {
     value: {
       validator: function (val) {
+        console.log(val)
         return val === null || val instanceof String || val instanceof Date
       }
     },
