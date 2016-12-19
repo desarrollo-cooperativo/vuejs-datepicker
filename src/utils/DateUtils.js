@@ -130,20 +130,22 @@ export default {
    */
   formatDate (date, format, translation) {
     translation = (!translation) ? DateLanguages.translations.en : translation
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
-    let day = date.getDate()
+    const utc = date.getTime() + (date.getTimezoneOffset() * 60000)
+    const nd = new Date(utc)
+    let year = nd.getFullYear()
+    let month = nd.getMonth() + 1
+    let day = nd.getDate()
     let str = format
+      .replace(/D(?!e)/, this.getDayNameAbbr(nd, translation.days))
+      .replace(/su/, this.getNthSuffix(nd.getDate()))
       .replace(/dd/, ('0' + day).slice(-2))
       .replace(/d/, day)
       .replace(/yyyy/, year)
       .replace(/yy/, String(year).slice(2))
-      .replace(/MMMM/, this.getMonthName(date.getMonth(), translation.months.original))
-      .replace(/MMM/, this.getMonthNameAbbr(date.getMonth(), translation.months.abbr))
+      .replace(/MMMM/, this.getMonthName(nd.getMonth(), translation.months.original))
+      .replace(/MMM/, this.getMonthNameAbbr(nd.getMonth(), translation.months.abbr))
       .replace(/MM/, ('0' + month).slice(-2))
       .replace(/M(?!a)/, month)
-      .replace(/su/, this.getNthSuffix(date.getDate()))
-      .replace(/D(?!e)/, this.getDayNameAbbr(date, translation.days))
     return str
   },
 

@@ -141,6 +141,7 @@ export default {
        * Positioning
        */
       calendarHeight: 0
+
     }
   },
   watch: {
@@ -624,7 +625,9 @@ export default {
       }
       if (typeof date === 'string') {
         const d = new Date(date)
-        this.selectedDate = d
+        const utc = d.getTime() + (d.getTimezoneOffset() * 60000)
+        const nd = new Date(utc)
+        this.selectedDate = nd
         this.currDate = new Date(d.getFullYear(), d.getMonth(), 1).getTime()
         return
       }
