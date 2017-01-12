@@ -618,20 +618,23 @@ export default {
      * @param {Date|null} date
      */
     setValue (date) {
+      var utc
       if (!date) {
         const d = new Date()
-        this.currDate = new Date(d.getFullYear(), d.getMonth(), 1).getTime()
+        utc = new Date(d.getTime() + d.getTimezoneOffset() * 60000)
+        this.currDate = new Date(utc.getFullYear(), utc.getMonth(), 1).getTime() + d.getTimezoneOffset() * 60000
         this.selectedDate = null
         return
       } else if (typeof date === 'string') {
         var d = new Date(date)
-        var utc = new Date(d.getTime() + d.getTimezoneOffset() * 60000)
+        utc = new Date(d.getTime() + d.getTimezoneOffset() * 60000)
         this.selectedDate = utc
         this.currDate = new Date(utc.getFullYear(), utc.getMonth(), 1).getTime() + d.getTimezoneOffset() * 60000
         return
       } else {
-        this.selectedDate = date
-        this.currDate = new Date(date.getFullYear(), date.getMonth(), 1).getTime()
+        utc = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
+        this.selectedDate = utc
+        this.currDate = new Date(utc.getFullYear(), utc.getMonth(), 1).getTime() + date.getTimezoneOffset() * 60000
       }
     },
 
