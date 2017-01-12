@@ -298,9 +298,10 @@ export default {
     },
 
     setDate (timestamp) {
-      this.selectedDate = new Date(timestamp)
-      const d = this.selectedDate
-      const dString = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
+      var d = new Date(timestamp)
+      var utc = new Date(d.getTime() + d.getTimezoneOffset() * 60000)
+      this.selectedDate = utc
+      const dString = utc.getFullYear() + '-' + (utc.getMonth() + 1) + '-' + utc.getDate()
       this.currDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1).getTime()
       this.$emit('selected', dString)
       this.$emit('input', dString)
@@ -622,17 +623,16 @@ export default {
         this.currDate = new Date(d.getFullYear(), d.getMonth(), 1).getTime()
         this.selectedDate = null
         return
-      }
-      if (typeof date === 'string') {
-        const d = new Date(date)
-        const utc = d.getTime() + (d.getTimezoneOffset() * 60000)
-        const nd = new Date(utc)
-        this.selectedDate = nd
-        this.currDate = new Date(d.getFullYear(), d.getMonth(), 1).getTime()
+      } else if (typeof date === 'string') {
+        var d = new Date(date)
+        var utc = new Date(d.getTime() + d.getTimezoneOffset() * 60000)
+        this.selectedDate = utc
+        this.currDate = new Date(utc.getFullYear(), utc.getMonth(), 1).getTime()
         return
+      } else {
+        this.selectedDate = date
+        this.currDate = new Date(date.getFullYear(), date.getMonth(), 1).getTime()
       }
-      this.selectedDate = date
-      this.currDate = new Date(date.getFullYear(), date.getMonth(), 1).getTime()
     },
 
     init () {
