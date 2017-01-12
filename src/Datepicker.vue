@@ -302,7 +302,7 @@ export default {
       var utc = new Date(d.getTime() + d.getTimezoneOffset() * 60000)
       this.selectedDate = utc
       const dString = utc.getFullYear() + '-' + (utc.getMonth() + 1) + '-' + utc.getDate()
-      this.currDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1).getTime()
+      this.currDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1).getTime() + d.getTimezoneOffset() * 60000
       this.$emit('selected', dString)
       this.$emit('input', dString)
     },
@@ -627,7 +627,7 @@ export default {
         var d = new Date(date)
         var utc = new Date(d.getTime() + d.getTimezoneOffset() * 60000)
         this.selectedDate = utc
-        this.currDate = new Date(utc.getFullYear(), utc.getMonth(), 1).getTime()
+        this.currDate = new Date(utc.getFullYear(), utc.getMonth(), 1).getTime() + d.getTimezoneOffset() * 60000
         return
       } else {
         this.selectedDate = date
